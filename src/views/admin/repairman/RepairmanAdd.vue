@@ -95,7 +95,7 @@
                 const _this = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        axios.post('https://shmly.top/repair/repairman/add', this.ruleForm).then(function (resp) {
+                        axios.post('/repairman/add', this.ruleForm).then(function (resp) {
                             if (resp.status == '200') {
                                 _this.$alert('维修员: ' + _this.ruleForm.name + ' 添加成功！', '消息', {
                                     confirmButtonText: '确定',

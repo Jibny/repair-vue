@@ -10,6 +10,16 @@ const routes = [
         component: () => import('../views/admin/Home'),
         show:'admin',
         redirect: '/admin/RepairOnline',
+        beforeEnter: (to, from, next) => {
+            if(sessionStorage.getItem("admin")){
+                next()
+            }else{
+                alert("管理员未登录，请重新登入！！！")
+                next({
+                    path: '/'
+                })
+            }
+        },
         children: [
             {
                 path: '/admin/user',
@@ -45,6 +55,16 @@ const routes = [
         component: () => import('../views/admin/Home'),
         redirect: '/admin/RepairOnline',
         show:'admin-ex',
+        beforeEnter: (to, from, next) => {
+            if(sessionStorage.getItem("admin")){
+                next()
+            }else{
+                alert("管理员未登录，请重新登入！！！")
+                next({
+                    path: '/'
+                })
+            }
+        },
         children: [
             {
                 path: '/admin/userAdd',
@@ -113,6 +133,16 @@ const routes = [
         component: () => import('../views/user/Home'),
         show:'user',
         redirect: '/user/user',
+        beforeEnter: (to, from, next) => {
+            if(sessionStorage.getItem("userid")){
+                next()
+            }else{
+                alert("用户未登录，请重新登入！！！")
+                next({
+                    path: '/'
+                })
+            }
+        },
         children: [
             {
                 path: '/user/user',
@@ -161,6 +191,16 @@ const routes = [
         name: 'user-ex',
         component: () => import('../views/user/Home'),
         redirect: '/user/RepairOnline',
+        beforeEnter: (to, from, next) => {
+            if(sessionStorage.getItem("userid")){
+                next()
+            }else{
+                alert("用户未登录，请重新登入！！！")
+                next({
+                    path: '/'
+                })
+            }
+        },
         show:false,
         children: [
             {
@@ -189,6 +229,16 @@ const routes = [
         component: () => import('../views/repairman/Home'),
         show:'repairman',
         redirect: '/repairman/RepairOnline',
+        beforeEnter: (to, from, next) => {
+            if(sessionStorage.getItem("repairmanid")){
+                next()
+            }else{
+                alert("维修人员未登录，请重新登入！！！")
+                next({
+                    path: '/'
+                })
+            }
+        },
         children: [
             {
                 path: '/repairman/repairman',
@@ -199,6 +249,11 @@ const routes = [
                 path: '/repairman/repairOnline',
                 name: '报修工单受理',
                 component: () => import('../views/repairman/repair/RepairOnline')
+            },
+            {
+                path: '/repairman/repairOnlineDeal',
+                name: '报修受理情况',
+                component: () => import('../views/repairman/repair/RepairOnlineDeal')
             },
             {
                 path: '/repairman/repairOnlineCategoryHistory',
@@ -228,6 +283,16 @@ const routes = [
         component: () => import('../views/repairman/Home'),
         redirect: '/repairman/RepairOnline',
         show:'repairman-ex',
+        beforeEnter: (to, from, next) => {
+            if(sessionStorage.getItem("repairmanid")){
+                next()
+            }else{
+                alert("维修人员未登录，请重新登入！！！")
+                next({
+                    path: '/'
+                })
+            }
+        },
         children: [
 
             {
@@ -265,8 +330,13 @@ const routes = [
     },
     {
         path: '/',
-        name: '管理员菜单',
+        name: '登录界面',
         component: () => import('../views/Login'),
+    },
+    {
+        path: '/upload',
+        name: '图片上传',
+        component: () => import('../components/Upload'),
     },
     {
         path: '/userRegister',

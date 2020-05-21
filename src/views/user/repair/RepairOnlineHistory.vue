@@ -122,7 +122,7 @@
         methods: {
             handleClickPage(currentPage) {
                 const _this = this
-                axios.get('https://shmly.top/repair/online/listByUserNumber?pageNo=' + currentPage + '&pageSize=6&userNumber='+this.number+'&status=处理完成').then(function (resp) {
+                axios.get('/online/listByUserNumber?pageNo=' + currentPage + '&pageSize=6&userNumber='+this.number+'&status=处理完成').then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)
@@ -131,9 +131,9 @@
         },
         created() {
             const _this = this
-            axios.get('https://shmly.top/repair/user/queryById?id='+sessionStorage.getItem("userid")).then(function (resp) {
+            axios.get('/user/queryById?id='+sessionStorage.getItem("userid")).then(function (resp) {
                 _this.number = resp.data.result.number
-                axios.get('https://shmly.top/repair/online/listByUserNumber?pageNo=1&pageSize=6&userNumber='+_this.number+'&status=处理完成').then(function (resp) {
+                axios.get('/online/listByUserNumber?pageNo=1&pageSize=6&userNumber='+_this.number+'&status=处理完成').then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)

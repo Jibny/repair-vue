@@ -56,7 +56,7 @@
                 const _this = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        axios.put('https://shmly.top/repair/address/edit', this.ruleForm).then(function (resp) {
+                        axios.put('/address/edit', this.ruleForm).then(function (resp) {
                             if(resp.status == '200'){
                                 _this.$alert('地址: '+_this.ruleForm.encode+' 信息修改成功！', '消息', {
                                     confirmButtonText: '确定',
@@ -78,7 +78,7 @@
         created() {
             //alert(this.$route.query.id)
             const _this = this;
-            axios.get('https://shmly.top/repair/address/queryById?id=' + this.$route.query.id).then(function (resp) {
+            axios.get('/address/queryById?id=' + this.$route.query.id).then(function (resp) {
                 _this.ruleForm = resp.data.result
                 console.log(resp.data)
             })

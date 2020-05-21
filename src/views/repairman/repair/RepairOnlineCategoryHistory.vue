@@ -122,7 +122,7 @@
         methods: {
             handleClickPage(currentPage) {
                 const _this = this
-                axios.get('http://localhost:8888/repair/online/listByRepairmanNameCategoryStatus?pageNo=1&pageSize=6&category='+_this.category+'&status=处理完成&repairmanName='+_this.repairmanName).then(function (resp) {
+                axios.get('/online/listCategoryStatusName?pageNo=1&pageSize=6&category='+_this.category+'&status=处理完成&repairmanName='+_this.repairmanName).then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)
@@ -131,10 +131,10 @@
         },
         created() {
             const _this = this
-            axios.get('https://shmly.top/repair/repairman/queryById?id='+sessionStorage.getItem("repairmanid")).then(function (resp) {
+            axios.get('/repairman/queryById?id='+sessionStorage.getItem("repairmanid")).then(function (resp) {
                 _this.category = resp.data.result.category
                 _this.repairmanName = resp.data.result.name
-                axios.get('http://localhost:8888/repair/online/listByRepairmanNameCategoryStatus?pageNo=1&pageSize=6&category='+_this.category+'&status=处理完成&repairmanName='+_this.repairmanName).then(function (resp) {
+                axios.get('/online/listCategoryStatusName?pageNo=1&pageSize=6&category='+_this.category+'&status=处理完成&repairmanName='+_this.repairmanName).then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)

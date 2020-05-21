@@ -7,6 +7,10 @@ import './plugins/element.js'
 
 Vue.config.productionTip = false
 
+//axios.defaults.baseURL = ''
+axios.defaults.baseURL = 'http://localhost:8888/repair'
+Vue.prototype.$http = axios
+
 new Vue({
   router,
   store,

@@ -56,7 +56,7 @@
                 const _this = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        axios.post('https://shmly.top/repair/type/add', this.ruleForm).then(function (resp) {
+                        axios.post('/type/add', this.ruleForm).then(function (resp) {
                             if (resp.status == '200') {
                                 _this.$alert('分类: ' + _this.ruleForm.encode + ' 添加成功！', '消息', {
                                     confirmButtonText: '确定',

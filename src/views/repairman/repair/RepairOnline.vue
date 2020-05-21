@@ -100,7 +100,7 @@
             },
             handleClickPage(currentPage) {
                 const _this = this
-                axios.get('https://shmly.top/repair/online/listByCategoryStatus?pageNo=' + currentPage + '&pageSize=6&category='+this.category+'&status=正在处理').then(function (resp) {
+                axios.get('/online/listByCategoryStatus?pageNo=' + currentPage + '&pageSize=6&category='+this.category+'&status=申请报修').then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)
@@ -109,9 +109,9 @@
         },
         created() {
             const _this = this
-            axios.get('https://shmly.top/repair/repairman/queryById?id='+sessionStorage.getItem("repairmanid")).then(function (resp) {
+            axios.get('/repairman/queryById?id='+sessionStorage.getItem("repairmanid")).then(function (resp) {
                 _this.category = resp.data.result.category
-                axios.get('https://shmly.top/repair/online/listByCategoryStatus?pageNo=1&pageSize=6&category='+_this.category+'&status=申请报修').then(function (resp) {
+                axios.get('/online/listByCategoryStatus?pageNo=1&pageSize=6&category='+_this.category+'&status=申请报修').then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)

@@ -97,7 +97,7 @@
             clickDelete(row) {
                 console.log(row.id)
                 const _this = this
-                axios.delete('https://shmly.top/repair/user/delete?id=' + row.id).then(function (resp) {
+                axios.delete('/user/delete?id=' + row.id).then(function (resp) {
                     console.log(resp.data)
                     if (resp.data.code == '200') {
                         _this.$alert('用户: ' + row.name + ' 信息删除成功！', '消息', {
@@ -113,7 +113,7 @@
             },
             handleClickPage(currentPage) {
                 const _this = this
-                axios.get('https://shmly.top/repair/user/list?pageNo=' + currentPage + '&pageSize=6').then(function (resp) {
+                axios.get('/user/list?pageNo=' + currentPage + '&pageSize=6').then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)
@@ -122,7 +122,7 @@
         },
         created() {
             const _this = this
-            axios.get('https://shmly.top/repair/user/list?pageNo=1&pageSize=6').then(function (resp) {
+            axios.get('/user/list?pageNo=1&pageSize=6').then(function (resp) {
                 _this.tableData = resp.data.result.records
                 _this.total = resp.data.result.total
                 console.log(resp.data)

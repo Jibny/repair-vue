@@ -116,7 +116,7 @@
                 const _this = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        axios.put('https://shmly.top/repair/online/edit', this.ruleForm).then(function (resp) {
+                        axios.put('/online/edit', this.ruleForm).then(function (resp) {
                             if (resp.status == '200') {
                                 _this.$alert('报修单: ' + _this.ruleForm.id + ' 信息评价成功！', '消息', {
                                     confirmButtonText: '确定',
@@ -138,7 +138,7 @@
         created() {
             //alert(this.$route.query.id)
             const _this = this;
-            axios.get('https://shmly.top/repair/online/queryById?id=' + this.$route.query.id).then(function (resp) {
+            axios.get('/online/queryById?id=' + this.$route.query.id).then(function (resp) {
                 _this.ruleForm = resp.data.result
                 _this.ruleForm.status = "处理完成"
                 console.log(resp.data)

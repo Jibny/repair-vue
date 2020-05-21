@@ -88,7 +88,7 @@
                         label="操作"
                         width="120">
                     <template slot-scope="scope">
-                        <el-button @click="clickUpdate(scope.row)" type="text" size="small">完成评价</el-button>
+                        <el-button @click="clickUpdate(scope.row)" type="text" size="small">修改</el-button>
                     </template>
                 </el-table-column>
             </el-table-column>
@@ -106,21 +106,20 @@
 
 <script>
     export default {
-        name: "RepairOnlineAdvice",
+        name: "RepairOnlineDeal",
         methods: {
             clickUpdate(row) {
                 this.$router.push({
-                    path: '/user/repairOnlineAdviceAdd',
+                    path: '/repairman/repairOnlineUpdate',
                     query: {
                         id: row.id
                     }
                 })
                 console.log(row);
             },
-
             handleClickPage(currentPage) {
                 const _this = this
-                axios.get('/online/listByUserNumber?pageNo=' + currentPage + '&pageSize=6&userNumber='+this.number+'&status=正在处理').then(function (resp) {
+                axios.get('/online/listByCategoryStatus?pageNo=' + currentPage + '&pageSize=6&category='+this.category+'&status=正在处理').then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)
@@ -129,9 +128,9 @@
         },
         created() {
             const _this = this
-            axios.get('/user/queryById?id='+sessionStorage.getItem("userid")).then(function (resp) {
-                _this.number = resp.data.result.number
-                axios.get('/online/listByUserNumber?pageNo=1&pageSize=6&userNumber='+_this.number+'&status=正在处理').then(function (resp) {
+            axios.get('/repairman/queryById?id='+sessionStorage.getItem("repairmanid")).then(function (resp) {
+                _this.category = resp.data.result.category
+                axios.get('/online/listByCategoryStatus?pageNo=1&pageSize=6&category='+_this.category+'&status=正在处理').then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)
@@ -141,28 +140,47 @@
         data() {
             return {
                 total: null,
-                number:'',
+                category:'',
                 tableData:null,
-                    // [{
-                    //     id: '12345',
-                    //     category:'',
-                    //     area:'',
-                    //     dorm:'',
-                    //     room:'',
-                    //     userNumber: '16102100',
-                    //     userName: '张三',
-                    //     problem:"",
-                    //     image:'',
-                    //     reason:'',
-                    //     status:'',
-                    //     repairmanName:'',
-                    //     repairmanTelephone: '18000001111',
-                    //     context:'',
-                    //     score: '',
-                    //     gmtDeal: '2020-04-26 20:29:15',
-                    //     gmtModified: '2020-04-27 20:29:15',
-                    //     gmtCreate: '2020-04-24 20:29:15'
-                    // }]
+                // [{
+                //     id: '12345',
+                //     category:'',
+                //     area:'',
+                //     dorm:'',
+                //     room:'',
+                //     userNumber: '16102100',
+                //     userName: '张三',
+                //     problem:"",
+                //     image:'',
+                //     reason:'',
+                //     status:'',
+                //     repairmanName:'',
+                //     repairmanTelephone: '18000001111',
+                //     context:'',
+                //     score: '',
+                //     gmtDeal: '2020-04-26 20:29:15',
+                //     gmtModified: '2020-04-27 20:29:15',
+                //     gmtCreate: '2020-04-24 20:29:15'
+                // }, {
+                //     id: '12346',
+                //     category:'',
+                //     area:'',
+                //     dorm:'',
+                //     room:'',
+                //     userNumber: '16102100',
+                //     userName: '张三',
+                //     problem:"",
+                //     image:'',
+                //     reason:'',
+                //     status:'',
+                //     repairmanName:'',
+                //     repairmanTelephone: '18000001111',
+                //     context:'',
+                //     score: '',
+                //     gmtDeal: '2020-04-26 20:29:15',
+                //     gmtModified: '2020-04-27 20:29:15',
+                //     gmtCreate: '2020-04-24 20:29:15'
+                // }]
             }
         }
     }

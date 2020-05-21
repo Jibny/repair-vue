@@ -154,7 +154,7 @@
                 const _this = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        axios.post('https://shmly.top/repair/online/add', this.ruleForm).then(function (resp) {
+                        axios.post('/online/add', this.ruleForm).then(function (resp) {
                             if (resp.status == '200') {
                                 _this.$alert('用户: ' + _this.ruleForm.name + ' 添加成功！', '消息', {
                                     confirmButtonText: '确定',

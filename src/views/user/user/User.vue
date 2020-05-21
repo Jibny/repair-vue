@@ -92,7 +92,7 @@
         },
         created() {
             const _this = this
-            axios.get('https://shmly.top/repair/user/listById?id='+sessionStorage.getItem("userid")).then(function (resp) {
+            axios.get('/user/listById?id='+sessionStorage.getItem("userid")).then(function (resp) {
                 _this.tableData = resp.data.result.records
                 console.log(resp.data)
             })

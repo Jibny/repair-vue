@@ -64,7 +64,7 @@
                     if (valid) {
                         const _this = this;
                         if (this.radio == 1) {
-                            axios.post('https://shmly.top/repair/login/userLogin?username=' + this.ruleForm2.username + '&password=' + this.ruleForm2.password).then(function (resp) {
+                            axios.post('/login/userLogin?username=' + this.ruleForm2.username + '&password=' + this.ruleForm2.password).then(function (resp) {
                                 console.log(resp)
                                 if (resp.data.code == 200) {
                                     alert("用户登入成功")
@@ -77,7 +77,7 @@
                                 )
                             })
                         } else if (this.radio == 2) {
-                            axios.post('https://shmly.top/repair/login/repairmanLogin?username=' + this.ruleForm2.username + '&password=' + this.ruleForm2.password).then(function (resp) {
+                            axios.post('/login/repairmanLogin?username=' + this.ruleForm2.username + '&password=' + this.ruleForm2.password).then(function (resp) {
                                 console.log(resp)
                                 if (resp.data.code == 200) {
                                     alert("维修人员登入成功")
@@ -90,7 +90,7 @@
                                 )
                             })
                         } else if (this.radio == 3){
-                            axios.post('https://shmly.top/repair/login/adminLogin?username=' + this.ruleForm2.username + '&password=' + this.ruleForm2.password).then(function (resp) {
+                            axios.post('/login/adminLogin?username=' + this.ruleForm2.username + '&password=' + this.ruleForm2.password).then(function (resp) {
                                 console.log(resp)
                                 if (resp.data.code == 200) {
                                     alert("管理员登入成功")
@@ -146,4 +146,5 @@
         margin: 0px 0px 15px;
         text-align: left;
     }
+
 </style>

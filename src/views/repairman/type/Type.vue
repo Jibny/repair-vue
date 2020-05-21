@@ -77,7 +77,7 @@
             clickDelete(row) {
                 console.log(row.id)
                 const _this = this
-                axios.delete('https://shmly.top/repair/type/delete?id=' + row.id).then(function (resp) {
+                axios.delete('/type/delete?id=' + row.id).then(function (resp) {
                     console.log(resp.data)
                     if (resp.data.code == '200') {
                         _this.$alert('分类: ' + row.encode + ' 信息删除成功！', '消息', {
@@ -93,7 +93,7 @@
             },
             handleClickPage(currentPage) {
                 const _this = this
-                axios.get('https://shmly.top/repair/type/list?pageNo=' + currentPage + '&pageSize=6').then(function (resp) {
+                axios.get('/type/list?pageNo=' + currentPage + '&pageSize=6').then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)
@@ -102,7 +102,7 @@
         },
         created() {
             const _this = this
-            axios.get('https://shmly.top/repair/type/list?pageNo=1&pageSize=6').then(function (resp) {
+            axios.get('/type/list?pageNo=1&pageSize=6').then(function (resp) {
                 _this.tableData = resp.data.result.records
                 _this.total = resp.data.result.total
                 console.log(resp.data)
