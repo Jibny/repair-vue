@@ -10,7 +10,7 @@
             <el-form-item label="用户名" prop="username">
                 <el-input v-model="ruleForm.username"></el-input>
             </el-form-item>
-            <el-form-item label="密码" prop="password" >
+            <el-form-item label="密码" prop="password">
                 <el-input type="password" v-model="ruleForm.password"></el-input>
             </el-form-item>
             <el-form-item label="地址" prop="address">
@@ -22,24 +22,40 @@
             <el-form-item label="邮箱" prop="email">
                 <el-input v-model="ruleForm.email"></el-input>
             </el-form-item>
-
+            <el-form-item label="验证码" >
+                <div style="width: 400px;height: 50px;">
+                    <div style="width: 120px;height: 50px;float:left;">
+                        <el-input v-model="checkCode" placeholder="请输入验证码"></el-input>
+                    </div>
+                    <div style="width: 140px;height: 50px;float:left" @click="refreshCode()">
+                            <s-identify :identifyCode="identifyCode"></s-identify>
+                    </div>
+                </div>
+            </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">用户注册</el-button>
                 <el-button type="primary" @click="test()">返回登入</el-button>
             </el-form-item>
         </el-form>
+
     </div>
 </template>
 
 
 <script>
+    import SIdentify from "../components/SIdentify";
+
     export default {
         name: "UserRegister",
+        components: {SIdentify},
         data() {
             return {
+                checkCode: "",
+                identifyCode: "",
+                identifyCodes: "0123456789abcdwerwshdjeJKDHRJHKOOPLMKQ",//随便打的
                 ruleForm: {
                     id: '',
-                    number: '201021',
+                    number: '16100100',
                     name: '学生',
                     username: 'stuTest',
                     password: '123456',
@@ -76,40 +92,69 @@
                         {required: true, message: '请输入邮箱地址', trigger: 'blur'},
                         {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
                     ],
-                }
+                },
             };
         },
         methods: {
+            refreshCode() {
+                this.identifyCode = "";
+                this.makeCode(this.identifyCodes, 4);
+                this.checkCode = this.identifyCode;
+                //console.log(this.identifyCode)
+            },
+            randomNum(min, max) {
+                max = max + 1
+                return Math.floor(Math.random() * (max - min) + min)
+            },
+            // 随机生成验证码字符串
+            makeCode(data, len) {
+                for (let i = 0; i < len; i++) {
+                    this.identifyCode += data[this.randomNum(0, data.length - 1)]
+                }
+            },
             test() {
                 console.log(this.ruleForm)
                 this.$router.push('/')
             },
             submitForm(formName) {
-                const _this = this
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        axios.post('/user/add', this.ruleForm).then(function (resp) {
-                            if (resp.status == '200') {
-                                _this.$alert('报修用户: ' + _this.ruleForm.name + ' 注册成功！', '消息', {
-                                    confirmButtonText: '确定',
-                                    callback: action => {
-                                        _this.$router.push('/')
-                                    }
-                                })
-                            }
-                        })
-                    } else {
-                        return false;
-                    }
-                });
+                if(this.identifyCode.toLowerCase()==this.checkCode.toLowerCase()){
+                    const _this = this
+                    this.$refs[formName].validate((valid) => {
+                        if (valid) {
+                            axios.post('/user/add', this.ruleForm).then(function (resp) {
+                                if (resp.status == '200') {
+                                    _this.$alert('报修用户: ' + _this.ruleForm.name + ' 注册成功！', '消息', {
+                                        confirmButtonText: '确定',
+                                        callback: action => {
+                                            _this.$router.push('/')
+                                        }
+                                    })
+                                }
+                            })
+                        } else {
+                            return false;
+                        }
+                    });
+                }else{
+                    alert("验证码错误")
+                }
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             }
+        },
+        created() {
+            this.refreshCode();
         }
     }
 </script>
 
 <style scoped>
+    .get-code {
+        width: 400px;
+        height: 100px;
+        display: inline;
+        margin: 0px 0px 0px 0px;
 
+    }
 </style>

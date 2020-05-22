@@ -5,16 +5,23 @@
                 <el-input v-model="ruleForm.number" readOnly></el-input>
             </el-form-item>
             <el-form-item label="名字" prop="name">
-                <el-input v-model="ruleForm.name"></el-input>
+                <el-input v-model="ruleForm.name" readOnly></el-input>
             </el-form-item>
             <el-form-item label="用户名" prop="username">
-                <el-input v-model="ruleForm.username"></el-input>
+                <el-input v-model="ruleForm.username" ></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
                 <el-input v-model="ruleForm.password"></el-input>
             </el-form-item>
             <el-form-item label="分类" prop="category">
-                <el-input v-model="ruleForm.category"></el-input>
+                <el-select v-model="ruleForm.category"  placeholder="请选择">
+                    <el-option
+                            v-for="item in types"
+                            :key="item.id"
+                            :label="item.category"
+                            :value="item.category">
+                    </el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="地址" prop="address">
                 <el-input v-model="ruleForm.address"></el-input>
@@ -40,6 +47,7 @@
         name: "RepairmanUpdate",
         data() {
             return {
+                types: [],
                 ruleForm: {
                     id: '',
                     number: '',
@@ -118,6 +126,11 @@
             axios.get('/repairman/queryById?id=' + this.$route.query.id).then(function (resp) {
                 _this.ruleForm = resp.data.result
                 console.log(resp.data)
+            })
+            axios.get('/type/list').then(function (resp) {
+                console.log(resp)
+                _this.types = resp.data.result.records
+                _this.types = resp.data.result.records
             })
         }
     }

@@ -14,7 +14,7 @@
             <el-table-column
                     prop="number"
                     label="学号"
-                    width="80">
+                    width="90">
             </el-table-column>
             <el-table-column
                     prop="name"
@@ -39,12 +39,12 @@
             <el-table-column
                     prop="telephone"
                     label="手机号"
-                    width="100">
+                    width="120">
             </el-table-column>
             <el-table-column
                     prop="email"
                     label="邮箱"
-                    width="140">
+                    width="180">
             </el-table-column>
             <el-table-column
                     prop="gmtModified"
@@ -62,7 +62,7 @@
                     label="操作"
                     width="120">
                 <template slot-scope="scope">
-                    <el-button @click="clickUpdate(scope.row)" type="text" size="small">修改</el-button>
+                    <el-button @click="clickUpdate(scope.row)" type="primary" icon="el-icon-edit" circle size="small">修改</el-button>
                 </template>
             </el-table-column>
             </el-table-column>

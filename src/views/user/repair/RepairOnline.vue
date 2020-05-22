@@ -12,6 +12,12 @@
                     width="60">
             </el-table-column>
             <el-table-column
+                    fixed
+                    prop="id"
+                    label="报修单号"
+                    width="180px">
+            </el-table-column>
+            <el-table-column
                     prop="category"
                     label="报修分类"
                     width="100">
@@ -69,11 +75,11 @@
             <el-table-column
                     fixed="right"
                     label="操作"
-                    width="120">
+                    width="160">
                 <template slot-scope="scope">
 <!--                    <el-button @click="clickAdd()" type="text" size="small">添加</el-button>-->
-                    <el-button @click="clickUpdate(scope.row)" type="text" size="small">修改</el-button>
-                    <el-button @click="clickDelete(scope.row)" type="text" size="small">删除</el-button>
+                    <el-button @click="clickUpdate(scope.row)"  type="primary" icon="el-icon-edit" circle size="small">修改</el-button>
+                    <el-button @click="clickDelete(scope.row)" type="danger" icon="el-icon-delete" circle size="small">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>

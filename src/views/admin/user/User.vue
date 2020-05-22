@@ -9,17 +9,17 @@
                     type="index"
                     prop="id"
                     label="编号"
-                    width="60">
+                    width="90">
             </el-table-column>
             <el-table-column
                     prop="number"
                     label="学号"
-                    width="80">
+                    width="100">
             </el-table-column>
             <el-table-column
                     prop="name"
                     label="名字"
-                    width="66">
+                    width="80">
             </el-table-column>
             <el-table-column
                     prop="username"
@@ -39,31 +39,31 @@
             <el-table-column
                     prop="telephone"
                     label="手机号"
-                    width="100">
+                    width="120">
             </el-table-column>
             <el-table-column
                     prop="email"
                     label="邮箱"
-                    width="140">
+                    width="180">
             </el-table-column>
             <el-table-column
                     prop="gmtModified"
                     label="更新时间"
-                    width="140">
+                    width="180">
             </el-table-column>
             <el-table-column
                     prop="gmtCreate"
                     label="创建时间"
-                    width="140">
+                    width="180">
             </el-table-column>
             <el-table-column
                     fixed="right"
                     label="操作"
-                    width="120">
+                    width="210">
                 <template slot-scope="scope">
-                    <el-button @click="clickAdd()" type="text" size="small">添加</el-button>
-                    <el-button @click="clickUpdate(scope.row)" type="text" size="small">修改</el-button>
-                    <el-button @click="clickDelete(scope.row)" type="text" size="small">删除</el-button>
+                    <el-button @click="clickAdd()" type="success" size="small">添加</el-button>
+                    <el-button @click="clickUpdate(scope.row)" type="primary" size="small">修改</el-button>
+                    <el-button @click="clickDelete(scope.row)" type="danger" size="small">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>

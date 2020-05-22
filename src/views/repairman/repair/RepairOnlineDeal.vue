@@ -12,6 +12,12 @@
                     width="60">
             </el-table-column>
             <el-table-column
+                    fixed
+                    prop="id"
+                    label="报修单号"
+                    width="180px">
+            </el-table-column>
+            <el-table-column
                     prop="repairmanName"
                     label="维修人员"
                     width="100">
@@ -88,7 +94,7 @@
                         label="操作"
                         width="120">
                     <template slot-scope="scope">
-                        <el-button @click="clickUpdate(scope.row)" type="text" size="small">修改</el-button>
+                        <el-button @click="clickUpdate(scope.row)"  type="success" icon="el-icon-check" circle size="small">修改</el-button>
                     </template>
                 </el-table-column>
             </el-table-column>

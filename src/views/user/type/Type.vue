@@ -24,7 +24,7 @@
             <el-table-column
                     prop="description"
                     label="类型描述"
-                    width="200">
+                    width="350">
             </el-table-column>
             <el-table-column
                     prop="gmtModified"

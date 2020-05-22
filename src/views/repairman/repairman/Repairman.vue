@@ -67,7 +67,7 @@
                         label="操作"
                         width="120">
                     <template slot-scope="scope">
-                        <el-button @click="clickUpdate(scope.row)" type="text" size="small">修改</el-button>
+                        <el-button @click="clickUpdate(scope.row)" type="primary" icon="el-icon-edit" circle size="small">修改</el-button>
                     </template>
                 </el-table-column>
             </el-table-column>

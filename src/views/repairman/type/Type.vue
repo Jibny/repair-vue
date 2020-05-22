@@ -24,7 +24,7 @@
             <el-table-column
                     prop="description"
                     label="类型描述"
-                    width="200">
+                    width="350">
             </el-table-column>
             <el-table-column
                     prop="gmtModified"
@@ -43,7 +43,7 @@
                         width="120">
                     <template slot-scope="scope">
                         <!--                    <el-button @click="clickAdd()" type="text" size="small">添加</el-button>-->
-                        <el-button @click="clickUpdate(scope.row)" type="text" size="small">修改</el-button>
+                        <el-button @click="clickUpdate(scope.row)" type="primary" icon="el-icon-edit" size="small">修改</el-button>
                         <!--                    <el-button @click="clickDelete(scope.row)" type="text" size="small">删除</el-button>-->
                     </template>
                 </el-table-column>

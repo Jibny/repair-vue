@@ -40,7 +40,11 @@
             <!--                <el-input v-model="ruleForm.userName"></el-input>-->
             <!--            </el-form-item>-->
             <el-form-item label="故障描述" prop="problem">
-                <el-input v-model="ruleForm.problem"></el-input>
+                <el-input
+                        type="textarea"
+                        :rows="4"
+                        placeholder="请输入故障描述"
+                        v-model="ruleForm.problem"></el-input>
             </el-form-item>
             <el-form-item label="故障图片">
                 <el-upload
@@ -57,7 +61,8 @@
             <!--                <el-input v-model="ruleForm.image"></el-input>-->
             <!--            </el-form-item>-->
             <el-form-item label="故障原因" prop="reason">
-                <el-input v-model="ruleForm.reason"></el-input>
+                <el-input placeholder="请输入故障原因"
+                        v-model="ruleForm.reason"></el-input>
             </el-form-item>
 
             <el-form-item>

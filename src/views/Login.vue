@@ -1,5 +1,6 @@
 <template>
-    <div class="login-container">
+    <div class="login-container" >
+        <canvas id="canvas" class="canvas"></canvas>
         <el-form :model="ruleForm2" :rules="rules2"
                  status-icon
                  ref="ruleForm2"
@@ -22,10 +23,10 @@
                 ></el-input>
             </el-form-item>
             <el-form-item>
-                <el-radio-group v-model="radio">
-                    <el-radio :label="1">用户</el-radio>
-                    <el-radio :label="2">维修员</el-radio>
-                    <el-radio :label="3">管理员</el-radio>
+                <el-radio-group  v-model="radio">
+                    <el-radio class="radio" :label="1">用户</el-radio>
+                    <el-radio class="radio" :label="2">维修员</el-radio>
+                    <el-radio class="radio" :label="3">管理员</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item style="width:100%;">
@@ -34,9 +35,11 @@
             </el-form-item>
         </el-form>
     </div>
+
 </template>
 
 <script>
+    import "../plugins/mousescript"
     export default {
         data() {
             return {
@@ -94,7 +97,7 @@
                                 console.log(resp)
                                 if (resp.data.code == 200) {
                                     alert("管理员登入成功")
-                                    sessionStorage.setItem("admin","admin-nishuodedui")
+                                    sessionStorage.setItem("admin",resp.data.result.id)
                                     _this.$router.push({
                                         path: '/admin/home',
                                     })
@@ -103,18 +106,6 @@
                                 )
                             })
                         }
-                        // this.logining = true;
-                        // if(this.ruleForm2.username === 'admin' &&
-                        //     this.ruleForm2.password === '123456'){
-                        //     this.logining = false;
-                        //     sessionStorage.setItem('user', this.ruleForm2.username);
-                        //     this.$router.push({path: '/admin/home'});
-                        // }else{
-                        //     this.logining = false;
-                        //     this.$alert('username or password wrong!', 'info', {
-                        //         confirmButtonText: 'ok'
-                        //     })
-                        // }
                     } else {
                         console.log('error submit!');
                         return false;
@@ -127,21 +118,37 @@
 
 <style scoped>
     .login-container {
-        width: 100%;
-        height: 90%;
+        background-image: url("../static/images/background.jpg");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        margin: -8px 0px 0px -8px;
+        height: 100%;
+        position: absolute;
+        width: 100%
     }
-
     .login-page {
         -webkit-border-radius: 5px;
         border-radius: 5px;
         margin: 180px auto;
         width: 350px;
         padding: 35px 35px 15px;
-        background: #fff;
         border: 1px solid #eaeaea;
         box-shadow: 0 0 25px #cac6c6;
     }
-
+    .canvas{
+        position:absolute;
+        background-size: 100% 100%;
+        margin: -2px 0px 0px -2px;
+        /*border:1px solid #f00;*/
+    }
+    .title{
+        color: AliceBlue;
+        text-align: center;
+        font-size: 28px;
+    }
+    .radio{
+        color: AliceBlue;
+    }
     label.el-checkbox.rememberme {
         margin: 0px 0px 15px;
         text-align: left;

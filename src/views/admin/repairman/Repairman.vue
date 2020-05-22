@@ -64,11 +64,11 @@
             <el-table-column
                     fixed="right"
                     label="操作"
-                    width="120">
+                    width="210">
                 <template slot-scope="scope">
-                    <el-button @click="clickAdd()" type="text" size="small">添加</el-button>
-                    <el-button @click="clickUpdate(scope.row)" type="text" size="small">修改</el-button>
-                    <el-button @click="clickDelete(scope.row)" type="text" size="small">删除</el-button>
+                    <el-button @click="clickAdd()" type="success" size="small">添加</el-button>
+                    <el-button @click="clickUpdate(scope.row)" type="primary" size="small">修改</el-button>
+                    <el-button @click="clickDelete(scope.row)" type="danger" size="small">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>

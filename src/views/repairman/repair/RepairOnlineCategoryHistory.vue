@@ -12,6 +12,12 @@
                     width="60">
             </el-table-column>
             <el-table-column
+                    fixed
+                    prop="id"
+                    label="报修单号"
+                    width="180px">
+            </el-table-column>
+            <el-table-column
                     prop="category"
                     label="报修分类"
                     width="100">

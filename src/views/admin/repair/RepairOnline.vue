@@ -1,5 +1,38 @@
 <template>
     <div>
+        <el-form :inline="true" :model="ruleForm">
+            <el-form-item label="报修单号" prop="id">
+                <el-input v-model="ruleForm.id" size="small" style="width: 220px"></el-input>
+            </el-form-item>
+            <el-form-item label="报修分类" prop="category">
+                <el-select v-model="ruleForm.category"  clearable placeholder="请选择" style="width: 120px">
+                    <el-option
+                            v-for="item in types"
+                            :key="item.id"
+                            :label="item.category"
+                            :value="item.category">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="用户学号" prop="userNumber">
+                <el-input v-model="ruleForm.userNumber" size="small" style="width: 100px"></el-input>
+            </el-form-item>
+            <el-form-item label="报修状态" prop="status">
+                <el-select v-model="ruleForm.status" placeholder="请选择" style="width: 140px">
+                    <el-option
+                            v-for="item in status"
+                            :key="item.id"
+                            :label="item.value"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="维修人员" prop="repairmanName">
+                <el-input v-model="ruleForm.repairmanName" size="small" style="width: 100px"></el-input>
+            </el-form-item>
+            <el-button type="primary" icon="el-icon-search" @click="clickSearch()">搜索</el-button>
+        </el-form>
+
         <el-table
                 :data="tableData"
                 border
@@ -10,6 +43,12 @@
                     prop="id"
                     label="编号"
                     width="60">
+            </el-table-column>
+            <el-table-column
+                    fixed
+                    prop="id"
+                    label="报修单号"
+                    width="180px">
             </el-table-column>
             <el-table-column
                     prop="category"
@@ -99,11 +138,11 @@
             <el-table-column
                     fixed="right"
                     label="操作"
-                    width="120">
+                    width="210">
                 <template slot-scope="scope">
-                    <el-button @click="clickAdd()" type="text" size="small">添加</el-button>
-                    <el-button @click="clickUpdate(scope.row)" type="text" size="small">修改</el-button>
-                    <el-button @click="clickDelete(scope.row)" type="text" size="small">删除</el-button>
+                    <el-button @click="clickAdd()" type="success" size="small">添加</el-button>
+                    <el-button @click="clickUpdate(scope.row)" type="primary" size="small">修改</el-button>
+                    <el-button @click="clickDelete(scope.row)" type="danger" size="small">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -121,6 +160,16 @@
     export default {
         name: "RepairOnline",
         methods: {
+            clickSearch(){
+                console.log(this.ruleForm)
+                const _this = this
+                axios.post('/online/listSearch?pageNo=1&pageSize=10',_this.ruleForm).then(function (resp) {
+                    _this.tableData = resp.data.result.records
+                    _this.total = resp.data.result.total
+                    console.log(resp.data)
+                })
+
+            },
             clickAdd() {
                 this.$router.push('/admin/repairOnlineAdd')
 
@@ -153,7 +202,7 @@
             },
             handleClickPage(currentPage) {
                 const _this = this
-                axios.get('/online/list?pageNo=' + currentPage + '&pageSize=6').then(function (resp) {
+                axios.get('/online/list?pageNo=' + currentPage + '&pageSize=10').then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)
@@ -162,50 +211,89 @@
         },
         created() {
             const _this = this
-            axios.get('/online/list?pageNo=1&pageSize=6').then(function (resp) {
+            axios.get('/online/list?pageNo=1&pageSize=10').then(function (resp) {
                 _this.tableData = resp.data.result.records
                 _this.total = resp.data.result.total
                 console.log(resp.data)
             })
+            axios.get('/type/list').then(function (resp) {
+                console.log(resp)
+                _this.types = resp.data.result.records
+                _this.types = resp.data.result.records
+            })
         },
         data() {
             return {
+                ruleForm: {
+                    id: '',
+                    category: '',
+                    area: '',
+                    dorm: '',
+                    room: '',
+                    userNumber: '',
+                    userName: '',
+                    problem: '',
+                    image: '',
+                    reason: '',
+                    status: '',
+                    repairmanName: '',
+                    repairmanTelephone: '',
+                    context: '',
+                    score: '',
+                    gmtDeal: '',
+                    gmtModified: '',
+                    gmtCreate: ''
+                },
+                types:[],
+                status: [
+                    {
+                        id: '1',
+                        value: '申请报修',
+                    },
+                    {
+                        id: '2',
+                        value: '正在处理',
+                    },
+                    {
+                        id: '3',
+                        value: '处理完成',
+                    }],
                 total: null,
                 tableData:
                     [{
                         id: '12345',
-                        category:'',
-                        area:'',
-                        dorm:'',
-                        room:'',
+                        category: '',
+                        area: '',
+                        dorm: '',
+                        room: '',
                         userNumber: '16102100',
                         userName: '张三',
-                        problem:"",
-                        image:'',
-                        reason:'',
-                        status:'',
-                        repairmanName:'',
+                        problem: "",
+                        image: '',
+                        reason: '',
+                        status: '',
+                        repairmanName: '',
                         repairmanTelephone: '18000001111',
-                        context:'',
+                        context: '',
                         score: '',
                         gmtDeal: '2020-04-26 20:29:15',
                         gmtModified: '2020-04-27 20:29:15',
                         gmtCreate: '2020-04-24 20:29:15'
                     }, {
                         id: '12346',
-                        category:'',
-                        area:'',
-                        dorm:'',
-                        room:'',
+                        category: '',
+                        area: '',
+                        dorm: '',
+                        room: '',
                         userNumber: '16102100',
                         userName: '张三',
-                        problem:"",
-                        image:'',
-                        reason:'',
-                        status:'',
-                        repairmanName:'',
+                        problem: "",
+                        image: '',
+                        reason: '',
+                        status: '',
+                        repairmanName: '',
                         repairmanTelephone: '18000001111',
-                        context:'',
+                        context: '',
                         score: '',
                         gmtDeal: '2020-04-26 20:29:15',
                         gmtModified: '2020-04-27 20:29:15',

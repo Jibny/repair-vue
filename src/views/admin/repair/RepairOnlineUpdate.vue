@@ -2,13 +2,27 @@
     <div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
             <el-form-item label="报修分类" prop="category">
-                <el-input v-model="ruleForm.category"></el-input>
+                <el-select v-model="ruleForm.category"  placeholder="请选择">
+                    <el-option
+                            v-for="item in types"
+                            :key="item.id"
+                            :label="item.category"
+                            :value="item.category">
+                    </el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="区域" prop="area">
                 <el-input v-model="ruleForm.area"></el-input>
             </el-form-item>
             <el-form-item label="宿舍楼" prop="dorm">
-                <el-input v-model="ruleForm.dorm"></el-input>
+                <el-select v-model="ruleForm.dorm" filterable placeholder="请选择">
+                    <el-option
+                            v-for="item in dorms"
+                            :key="item.id"
+                            :label="item.dorm"
+                            :value="item.dorm">
+                    </el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="房间号" prop="room">
                 <el-input v-model="ruleForm.room"></el-input>
@@ -20,10 +34,22 @@
                 <el-input v-model="ruleForm.userName"></el-input>
             </el-form-item>
             <el-form-item label="故障描述" prop="problem">
-                <el-input v-model="ruleForm.problem"></el-input>
+                <el-input
+                        type="textarea"
+                        :rows="4"
+                        placeholder="请输入故障描述"
+                        v-model="ruleForm.problem"></el-input>
             </el-form-item>
-            <el-form-item label="故障图片" prop="image">
-                <el-input v-model="ruleForm.image"></el-input>
+            <el-form-item label="故障图片">
+                <el-upload
+                        class="avatar-uploader"
+                        action="http://localhost:8888/repair/upload?diyPath=images"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
             </el-form-item>
             <el-form-item label="故障原因" prop="reason">
                 <el-input v-model="ruleForm.reason"></el-input>
@@ -84,6 +110,9 @@
         name: "RepairOnlineUpdate",
         data() {
             return {
+                types: [],
+                dorms: [],
+                imageUrl: '',
                 ruleForm: {
                     id: '',
                     category:'',
@@ -171,7 +200,7 @@
                     if (valid) {
                         axios.put('/online/edit', this.ruleForm).then(function (resp) {
                             if(resp.status == '200'){
-                                _this.$alert('用户: '+_this.ruleForm.name+' 信息修改成功！', '消息', {
+                                _this.$alert('报修工单: '+_this.ruleForm.id+' 信息修改成功！', '消息', {
                                     confirmButtonText: '确定',
                                     callback: action => {
                                         _this.$router.push('/admin/repairOnline')
@@ -186,7 +215,26 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
-            }
+            },
+            handleAvatarSuccess(res, file) {
+                console.log(res)
+                this.imageUrl = URL.createObjectURL(file.raw);
+                this.ruleForm.image = "http://localhost:8888/repair/" + res.message
+                console.log(this.ruleForm.image)
+                //this.imageUrl = URL.createObjectURL(file.raw);
+            },
+            beforeAvatarUpload(file) {
+                const isIMG = ['image/jpeg', 'image/jpg', 'image/png'].includes(file.type);
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isIMG) {
+                    this.$message.error('上传头像图片只能是 JPG/JPEG/PNG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isIMG && isLt2M;
+            },
         },
         created() {
             //alert(this.$route.query.id)
@@ -195,10 +243,45 @@
                 _this.ruleForm = resp.data.result
                 console.log(resp.data)
             })
+            axios.get('/type/list').then(function (resp) {
+                console.log(resp)
+                _this.types = resp.data.result.records
+                _this.types = resp.data.result.records
+            })
+            axios.get('/address/list?pageNo=1&pageSize=22').then(function (resp) {
+                console.log(resp)
+                _this.dorms = resp.data.result.records
+                _this.dorms = resp.data.result.records
+            })
         }
     }
 </script>
 
 <style scoped>
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
 
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
 </style>

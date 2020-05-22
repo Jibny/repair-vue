@@ -12,6 +12,12 @@
                     width="60">
             </el-table-column>
             <el-table-column
+                    fixed
+                    prop="id"
+                    label="报修单号"
+                    width="180px">
+            </el-table-column>
+            <el-table-column
                     prop="repairmanName"
                     label="维修人员"
                     width="100">
@@ -81,18 +87,16 @@
                     label="创建时间"
                     width="160">
             </el-table-column>
-
-            <el-table-column>
-                <el-table-column
-                        fixed="right"
-                        label="操作"
-                        width="120">
-                    <template slot-scope="scope">
-                        <el-button @click="clickUpdate(scope.row)" type="text" size="small">完成评价</el-button>
-                    </template>
-                </el-table-column>
+            <el-table-column
+                    fixed="right"
+                    label="操作"
+                    width="120">
+                <template slot-scope="scope">
+                    <el-button @click="clickUpdate(scope.row)" type="success" icon="el-icon-check" circle size="small">
+                        完成评价
+                    </el-button>
+                </template>
             </el-table-column>
-
         </el-table>
         <el-pagination
                 background
@@ -120,7 +124,7 @@
 
             handleClickPage(currentPage) {
                 const _this = this
-                axios.get('/online/listByUserNumber?pageNo=' + currentPage + '&pageSize=6&userNumber='+this.number+'&status=正在处理').then(function (resp) {
+                axios.get('/online/listByUserNumber?pageNo=' + currentPage + '&pageSize=6&userNumber=' + this.number + '&status=正在处理').then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)
@@ -129,9 +133,9 @@
         },
         created() {
             const _this = this
-            axios.get('/user/queryById?id='+sessionStorage.getItem("userid")).then(function (resp) {
+            axios.get('/user/queryById?id=' + sessionStorage.getItem("userid")).then(function (resp) {
                 _this.number = resp.data.result.number
-                axios.get('/online/listByUserNumber?pageNo=1&pageSize=6&userNumber='+_this.number+'&status=正在处理').then(function (resp) {
+                axios.get('/online/listByUserNumber?pageNo=1&pageSize=6&userNumber=' + _this.number + '&status=正在处理').then(function (resp) {
                     _this.tableData = resp.data.result.records
                     _this.total = resp.data.result.total
                     console.log(resp.data)
@@ -141,28 +145,28 @@
         data() {
             return {
                 total: null,
-                number:'',
-                tableData:null,
-                    // [{
-                    //     id: '12345',
-                    //     category:'',
-                    //     area:'',
-                    //     dorm:'',
-                    //     room:'',
-                    //     userNumber: '16102100',
-                    //     userName: '张三',
-                    //     problem:"",
-                    //     image:'',
-                    //     reason:'',
-                    //     status:'',
-                    //     repairmanName:'',
-                    //     repairmanTelephone: '18000001111',
-                    //     context:'',
-                    //     score: '',
-                    //     gmtDeal: '2020-04-26 20:29:15',
-                    //     gmtModified: '2020-04-27 20:29:15',
-                    //     gmtCreate: '2020-04-24 20:29:15'
-                    // }]
+                number: '',
+                tableData: null,
+                // [{
+                //     id: '12345',
+                //     category:'',
+                //     area:'',
+                //     dorm:'',
+                //     room:'',
+                //     userNumber: '16102100',
+                //     userName: '张三',
+                //     problem:"",
+                //     image:'',
+                //     reason:'',
+                //     status:'',
+                //     repairmanName:'',
+                //     repairmanTelephone: '18000001111',
+                //     context:'',
+                //     score: '',
+                //     gmtDeal: '2020-04-26 20:29:15',
+                //     gmtModified: '2020-04-27 20:29:15',
+                //     gmtCreate: '2020-04-24 20:29:15'
+                // }]
             }
         }
     }

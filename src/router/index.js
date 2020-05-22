@@ -334,6 +334,11 @@ const routes = [
         component: () => import('../views/Login'),
     },
     {
+        path: '/test',
+        name: '测试界面',
+        component: () => import('../components/SIdentify'),
+    },
+    {
         path: '/upload',
         name: '图片上传',
         component: () => import('../components/Upload'),
